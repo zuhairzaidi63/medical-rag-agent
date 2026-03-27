@@ -7,9 +7,9 @@ A production-ready, clinical-grade AI assistant built with **LangGraph**, **Fast
 - **Persistent Conversation Memory**: Uses PostgreSQL and LangGraph checkpointers to track multi-turn clinical context across sessions.
 - **Autonomous Reasoning**: Routes queries through specialized nodes for medical domain checking and query optimization.
 - **Production Orchestration**: Fully containerized with Docker Compose for seamless deployment.
-- **Rich User Interface**:- **Modern Frontend**: Streamlit UI with real-time session tracking.
+- **Modern Frontend**: Streamlit UI with real-time session tracking.
 
-![Project Demo](demo.webp)
+![Project Demo](demo.gif)
 
 ## 🛠️ Technical Stack
 - **Graph Logic**: [LangGraph](https://github.com/langchain-ai/langgraph)
