@@ -8,9 +8,10 @@ ENV/
 env/
 .env
 
-# Docker/Infrastructure
-postgres_data/
+# Data & Models
+backend/app/Diagnosis_flowchart/
 model_cache/
+postgres_data/
 .qdrant_storage/
 
 # IDEs
