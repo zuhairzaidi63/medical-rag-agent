@@ -1,0 +1,7 @@
+services:
+  tei_url: http://tei-embedding:80/embed
+  qdrant_url: http://qdrant:6333
+  database_url: postgresql://postgres:postgres@postgres:5432/checkpoints
+collection:
+  name: medical_db
+  dense_vector_size: 384

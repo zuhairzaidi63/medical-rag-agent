@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  postgres:
+      image: postgres:15-alpine
+      environment:
+        - POSTGRES_DB=checkpoints
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+      ports:
+        - "5433:5432"
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U postgres"]
+        interval: 5s
+        timeout: 5s
+        retries: 5
+
+  qdrant:
+      image: qdrant/qdrant:latest
+      ports:
+        - "6333:6333"   # REST API
+        - "6334:6334"   # gRPC
+      volumes:
+        - qdrant_storage:/qdrant/storage
+
+  tei-embedding:
+      image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.7
+      ports:
+        - "8080:80"
+      volumes:
+        - tei_data:/data
+      command: >
+        --model-id sentence-transformers/all-MiniLM-L6-v2
+        --port 80
+        --payload-limit 10485760
+
+  backend:
+      build:
+        context: ./backend
+        dockerfile: Dockerfile
+      ports:
+        - "8123:8000"
+      command: uvicorn app.main:api --host 0.0.0.0 --port 8000 --log-level debug
+      tty: true
+      environment:
+        - GROQ_API_KEY=${GROQ_API_KEY}
+        - FAST_EMBED_CACHE_DIR=/tmp/fastembed_cache
+      depends_on:
+        postgres:
+          condition: service_healthy
+        qdrant:
+          condition: service_started
+        tei-embedding:
+          condition: service_started
+      volumes:
+        - ./backend/app:/app/app
+        - ./model_cache:/tmp/fastembed_cache
+
+  frontend:
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      ports:
+        - "8505:8501"
+      depends_on:
+        - backend
+      environment:
+        - BACKEND_URL=http://backend:8000
+
+volumes:
+  postgres_data:
+  qdrant_storage:
+  tei_data:

@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+pydantic
+langgraph
+langgraph-checkpoint-postgres
+langchain-core
+langchain-groq
+qdrant-client
+fastembed
+sentence-transformers
+tiktoken
+python-dotenv
+pyyaml
+requests
+langchain-text-splitters
+psycopg[binary,pool]

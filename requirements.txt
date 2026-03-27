@@ -1,0 +1,12 @@
+langgraph
+langchain-core
+langchain-groq
+qdrant-client
+fastembed
+sentence-transformers
+tiktoken
+python-dotenv
+pyyaml
+requests
+langchain-text-splitters
+psycopg[binary,pool]
