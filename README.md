@@ -9,7 +9,7 @@ A production-ready, clinical-grade AI assistant built with **LangGraph**, **Fast
 - **Production Orchestration**: Fully containerized with Docker Compose for seamless deployment.
 - **Modern Frontend**: Streamlit UI with real-time session tracking.
 
-![Project Demo](demo.gif)
+![Project Demo](demo.webp)
 
 ## 🛠️ Technical Stack
 - **Graph Logic**: [LangGraph](https://github.com/langchain-ai/langgraph)
